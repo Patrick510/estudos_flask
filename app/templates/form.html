@@ -8,8 +8,12 @@
 </head>
 
 <body>
-  {{text}}
+  <Form method="post" action="/submit">
+    <label for="text">Text</label>
+    <input type="text" id="text" name="text" placeholder="Your text...">
 
+    <button type="submit">Send</button>
+  </Form>
 </body>
 
 </html>
