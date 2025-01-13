@@ -14,6 +14,9 @@
 
     <button type="submit">Send</button>
   </Form>
+  {% if message %}
+  <p style="color: green;"> {{message}}</p>
+  {% endif %}
 </body>
 
 </html>
