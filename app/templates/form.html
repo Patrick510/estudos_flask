@@ -8,6 +8,7 @@
 </head>
 
 <body>
+  <a href="/home"><button>Voltar</button></a>
   <Form method="post" action="/submit">
     <label for="text">Text</label>
     <input type="text" id="text" name="text" placeholder="Your text...">
@@ -17,16 +18,6 @@
   {% if message %}
   <p style="color: green;"> {{message}}</p>
   {% endif %}
-  <div>
-    {% for item in texts %}
-    <div>
-      <p><strong>ID:</strong> {{ item.id }}</p>
-      <p><strong>Texto:</strong> {{ item.text }}</p>
-      <p><small><strong>Data:</strong> {{ item.date }}</small></p>
-      <button>Excluir</button>
-    </div>
-    {% endfor %}
-  </div>
 </body>
 
 </html>

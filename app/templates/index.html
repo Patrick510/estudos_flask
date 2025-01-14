@@ -8,7 +8,17 @@
 </head>
 
 <body>
-  {{text}}
+  <a href="/"><button>Form</button></a>
+  <div>
+    {% for item in texts %}
+    <div>
+      <p><strong>ID:</strong> {{ item.id }}</p>
+      <p><strong>Texto:</strong> {{ item.text }}</p>
+      <p><small><strong>Data:</strong> {{ item.date }}</small></p>
+      <button>Excluir</button>
+    </div>
+    {% endfor %}
+  </div>
 </body>
 
 </html>

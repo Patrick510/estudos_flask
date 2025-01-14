@@ -6,8 +6,12 @@ id_text = 0
 texts = []
 
 @app.route("/")
-def home():
+def form():
   return render_template('form.html', name="Form")
+
+@app.route("/home")
+def home():
+  return render_template("index.html", name="Home", texts=texts)
 
 @app.route("/submit", methods=["POST"])
 def submit():
