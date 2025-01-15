@@ -16,6 +16,7 @@ def submit():
         caminho = f"./uploads/{imagem.filename.split('.')[0]}_{datetime.now().strftime('%Y-%m-%d')}.{imagem.filename.split('.')[-1]}"  
         os.makedirs('./uploads', exist_ok=True) 
         imagem.save(caminho)
+        print(f"Imagem salva em {caminho}")
         return render_template('form.html', name="Upload de Imagem", message=f"Imagem salva em {caminho}")
     return "Nenhuma imagem recebida"
 
