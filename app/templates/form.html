@@ -8,15 +8,12 @@
 </head>
 
 <body>
-  <a href="/home"><button>Voltar</button></a>
-  <Form method="post" action="/submit">
-    <label for="text">Text</label>
-    <input type="text" id="text" name="text" placeholder="Your text...">
-
+  <form method="post" action="/submit" enctype="multipart/form-data"> <!-- enctype necessário -->
+    <input type="file" id="image" name="image" placeholder="Your image..." accept="image/*" required>
     <button type="submit">Send</button>
-  </Form>
+  </form>
   {% if message %}
-  <p style="color: green;"> {{message}}</p>
+  <p style="color: green;">{{message}}</p>
   {% endif %}
 </body>
 
