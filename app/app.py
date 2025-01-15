@@ -1,22 +1,35 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, render_template, jsonify, request, redirect, url_for
 
 app = Flask(__name__)
+id_aula = 0
+lista_aulas = []
 
-texts = [
-    {"id": 1, "text": "Texto exemplo 1"},
-    {"id": 2, "text": "Texto exemplo 2"},
-    {"id": 3, "text": "Texto exemplo 3"}
-]
-
-@app.route('/')
+@app.route("/")
 def home():
-    return render_template('index.html', texts=texts, name="Flask")
+  return render_template("index.html", name="Home page", lista_aulas=lista_aulas)
 
-@app.route('/delete/<int:text_id>', methods=['DELETE'])
-def delete_text(text_id):
-    global texts
-    texts = [text for text in texts if text["id"] != text_id] 
-    return jsonify({"message": "Texto excluído com sucesso!"}), 200
+@app.route("/form")
+def form():
+  return render_template("form.html", name="Form", lista_aulas=lista_aulas)
+
+@app.route("/submit", methods=["POST"])
+def submit():
+  global id_aula
+  materia = request.form.get("materia")
+  professor = request.form.get("professor")
+  data = request.form.get("data")
+  id_aula += 1
+  
+  lista_aulas.append({"id": id_aula, "materia": materia, "professor": professor, "data": data})
+  
+  return redirect(url_for('form'))
+
+@app.route("/delete/<int:aula_id>", methods=["DELETE"])
+def delete(aula_id):
+  global lista_aulas
+  lista_aulas = [aula for aula in lista_aulas if aula["id"] != aula_id]
+
+  return jsonify({"message": "Materia deletada com sucesso"}), 200
 
 if __name__ == "__main__":
-    app.run(debug=True)
+  app.run(debug=True)

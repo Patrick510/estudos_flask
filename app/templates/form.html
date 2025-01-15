@@ -8,13 +8,40 @@
 </head>
 
 <body>
-  <form method="post" action="/submit" enctype="multipart/form-data"> <!-- enctype necessário -->
-    <input type="file" id="image" name="image" placeholder="Your image..." accept="image/*" required>
-    <button type="submit">Send</button>
+  <a href="/">Lista aula</a>
+  <h1>WORKING PAGE</h1>
+  <form action="/submit" method="post">
+    <label for="materia">Materia</label>
+    <input type="text" id="materia" name="materia" required>
+
+    <label for="professor">Professor</label>
+    <input type="text" id="professor" name="professor" required>
+
+    <label for="data">Data</label>
+    <input type="date" id="data" name="data" required>
+
+    <button type="submit">Enviar</button>
   </form>
-  {% if message %}
-  <p style="color: green;">{{message}}</p>
-  {% endif %}
+
+  <table>
+    <thead>
+      <tr> data </tr>
+      <tr> materia</tr>
+      <tr> professor</tr>
+      <tr> ação</tr>
+    </thead>
+    <tbody>
+      {% if lista_aulas %}
+      {% for list in lista_aulas %}
+      <tr id="list-{{list.id}}">
+        <td> {{list.data}}</td>
+        <td> {{list.materia}}</td>
+        <td> {{list.professor}}</td>
+      </tr>
+      {% endfor %}
+      {% endif %}
+    </tbody>
+  </table>
 </body>
 
 </html>

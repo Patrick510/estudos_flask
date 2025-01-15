@@ -8,32 +8,30 @@
 </head>
 
 <body>
-  <div>
-    {% for item in texts %}
-    <div id="item-{{ item.id }}">
-      <p><strong>ID:</strong> {{ item.id }}</p>
-      <p><strong>Texto:</strong> {{ item.text }}</p>
-      <button onclick="deleteText('{{ item.id }}')">Excluir</button>
-    </div>
-    {% endfor %}
-  </div>
+  <a href="/form"> <button> Formulario </button></a>
+  <table>
+    <thead>
+      <tr> data </tr>
+      <tr> materia</tr>
+      <tr> professor</tr>
+      <tr> ação</tr>
+    </thead>
+    <tbody>
+      {% if lista_aulas %}
+      {% for list in lista_aulas %}
+      <tr id="item-{{list.id}}">
+        <td> {{list.data}}</td>
+        <td> {{list.materia}}</td>
+        <td> {{list.professor}}</td>
+        <td> <button onclick="deleteAula('{{list.id}}')">Excluir</button></td>
+      </tr>
+      {% endfor %}
+      {% endif %}
+    </tbody>
 
-  <script>
-    function deleteText(textId) {
-      fetch(`/delete/${textId}`, {
-        method: 'DELETE',
-      })
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById(`item-${textId}`).remove();
-          alert(data.message);
-        })
-        .catch(error => {
-          alert("Erro ao excluir o texto.");
-        });
-    }
-  </script>
+  </table>
 
+  <script src="../static/script.js"></script>
 </body>
 
 </html>
