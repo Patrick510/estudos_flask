@@ -1,24 +1,22 @@
-import os
-from flask import Flask, render_template, request
-from datetime import datetime
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
-@app.route("/")
-def form():
-    return render_template('form.html', name="Upload de Imagem")
+texts = [
+    {"id": 1, "text": "Texto exemplo 1"},
+    {"id": 2, "text": "Texto exemplo 2"},
+    {"id": 3, "text": "Texto exemplo 3"}
+]
 
-@app.route("/submit", methods=["POST"])
-def submit():
-    imagem = request.files['image'] 
+@app.route('/')
+def home():
+    return render_template('index.html', texts=texts, name="Flask")
 
-    if imagem:
-        caminho = f"./uploads/{imagem.filename.split('.')[0]}_{datetime.now().strftime('%Y-%m-%d')}.{imagem.filename.split('.')[-1]}"  
-        os.makedirs('./uploads', exist_ok=True) 
-        imagem.save(caminho)
-        print(f"Imagem salva em {caminho}")
-        return render_template('form.html', name="Upload de Imagem", message=f"Imagem salva em {caminho}")
-    return "Nenhuma imagem recebida"
+@app.route('/delete/<int:text_id>', methods=['DELETE'])
+def delete_text(text_id):
+    global texts
+    texts = [text for text in texts if text["id"] != text_id] 
+    return jsonify({"message": "Texto excluído com sucesso!"}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -8,17 +8,32 @@
 </head>
 
 <body>
-  <a href="/"><button>Form</button></a>
   <div>
     {% for item in texts %}
-    <div>
+    <div id="item-{{ item.id }}">
       <p><strong>ID:</strong> {{ item.id }}</p>
       <p><strong>Texto:</strong> {{ item.text }}</p>
-      <p><small><strong>Data:</strong> {{ item.date }}</small></p>
-      <button>Excluir</button>
+      <button onclick="deleteText('{{ item.id }}')">Excluir</button>
     </div>
     {% endfor %}
   </div>
+
+  <script>
+    function deleteText(textId) {
+      fetch(`/delete/${textId}`, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById(`item-${textId}`).remove();
+          alert(data.message);
+        })
+        .catch(error => {
+          alert("Erro ao excluir o texto.");
+        });
+    }
+  </script>
+
 </body>
 
 </html>
